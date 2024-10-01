@@ -1,0 +1,14 @@
+.kanban-lane {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    min-width: 250px;
+  }
+  
+  .lane-cards {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
