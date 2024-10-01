@@ -7,24 +7,33 @@ import './App.css';
 function App() {
   const [tickets, setTickets] = useState([]);
   const [users, setUsers] = useState([]);
-  const [grouping, setGrouping] = useState('status'); // Default grouping by status
-  const [sorting, setSorting] = useState('priority'); // Default sorting by priority
+  const [grouping, setGrouping] = useState(null); // Initially null
+  const [sorting, setSorting] = useState(null); // Initially null
 
   useEffect(() => {
     const getData = async () => {
-      try {
-        const data = await fetchKanbanData();
-        setTickets(data.tickets);
-        setUsers(data.users);
-      } catch (error) {
-        console.error(error);
+      if (grouping && sorting) { // Fetch data only if both grouping and sorting are selected
+        try {
+          const data = await fetchKanbanData();
+          console.log(data);
+          setTickets(data.tickets);
+          setUsers(data.users);
+        } catch (error) {
+          console.error(error);
+        }
       }
     };
-    getData();
-  }, []);
 
-  const handleGroupingChange = (newGrouping) => setGrouping(newGrouping);
-  const handleSortingChange = (newSorting) => setSorting(newSorting);
+    getData();
+  }, [grouping, sorting]); // Dependency array includes grouping and sorting
+
+  const handleGroupingChange = (newGrouping) => {
+    setGrouping(newGrouping); // Update grouping state
+  };
+
+  const handleSortingChange = (newSorting) => {
+    setSorting(newSorting); // Update sorting state
+  };
 
   return (
     <div className="App">
@@ -37,7 +46,9 @@ function App() {
         onGroupingChange={handleGroupingChange}
         onSortingChange={handleSortingChange}
       />
-      <KanbanBoard tickets={tickets} users={users} grouping={grouping} sorting={sorting} />
+      {grouping && sorting && ( // Render KanbanBoard only if both grouping and sorting are selected
+        <KanbanBoard tickets={tickets} users={users} grouping={grouping} sorting={sorting} />
+      )}
     </div>
   );
 }
