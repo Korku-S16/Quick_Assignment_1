@@ -31,7 +31,8 @@
   .dropdown-grouping label, .dropdown-sorting label {
     font-size: 14px;
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 5px
+    ;
   }
   
   .dropdown-grouping select, .dropdown-sorting select {

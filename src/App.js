@@ -37,15 +37,15 @@ function App() {
 
   return (
     <div className="App">
-      <header>
+      <header className="app-header">
         <h1>Kanban Board</h1>
+        <DisplayDropdown 
+          grouping={grouping}
+          sorting={sorting}
+          onGroupingChange={handleGroupingChange}
+          onSortingChange={handleSortingChange}
+        />
       </header>
-      <DisplayDropdown
-        grouping={grouping}
-        sorting={sorting}
-        onGroupingChange={handleGroupingChange}
-        onSortingChange={handleSortingChange}
-      />
       {grouping && sorting && ( // Render KanbanBoard only if both grouping and sorting are selected
         <KanbanBoard tickets={tickets} users={users} grouping={grouping} sorting={sorting} />
       )}
